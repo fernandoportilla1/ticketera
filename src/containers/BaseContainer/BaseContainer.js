@@ -2,26 +2,36 @@ import React, { Component } from 'react';
 import PropTypes from "prop-types";
 
 import Header from '../../components/Header';
+import Sidebar from '../../components/Sidebar';
 import Footer from '../../components/Footer';
 
 class BaseContainer extends Component {
     render() {
         const { children } = this.props;
         return (
-            <main className="container">
+            <div>
                 <Header />
-                <nav className="Navigation"></nav>
-                <section className="section-container">
-                    {children}
-                </section>
+                <div className="container-fluid">
+                    <div className="row">
+                        <Sidebar />
+                        <main role="main" className="col-md-9 ml-sm-auto col-lg-10 px-4">
+                            <div className="container">
+                                {children}
+                            </div>
+                        </main>
+                    </div>
+                </div>
                 <Footer />
-            </main>
+            </div>
         );
     }
 }
 
 BaseContainer.propTypes = {
-    children: PropTypes.element.isRequired
+    children: PropTypes.oneOfType([
+        PropTypes.arrayOf(PropTypes.node),
+        PropTypes.node
+    ]).isRequired
 };
 
 

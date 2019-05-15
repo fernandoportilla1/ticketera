@@ -1,16 +1,17 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Route } from 'react-router-dom';
 
 // Import Components
 import BaseContainer from './containers/BaseContainer';
+import Home from './containers/HomeContainer';
+import Login from './containers/LoginContainer';
 
 
 const Routes = ({ location }) => {
     return (
         <BaseContainer>
-            <div>
-                <h1>Title</h1>
-            </div>
+            <Route exact path='/' component={Home} />
+            <Route path='/login' component={Login} />
         </BaseContainer>
 
     );

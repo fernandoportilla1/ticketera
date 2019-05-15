@@ -1,13 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types'
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
-import store from './store';
 import Routes from './Routes';
 
-function App() {
-  const basename = process.env.NODE_ENV === 'development' ? '/' : '/';
-
+const App = ({ store, basename }) => {
   return (
     <Provider store={store}>
       <Router basename={basename}>
@@ -15,6 +13,10 @@ function App() {
       </Router>
     </Provider >
   );
+}
+
+App.propTypes = {
+  store: PropTypes.object.isRequired
 }
 
 export default App;

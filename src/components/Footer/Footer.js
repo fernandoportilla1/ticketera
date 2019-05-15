@@ -1,38 +1,33 @@
-import React, { Component } from 'react';
-
+import React from 'react';
+import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { startLogin, successLogin } from '../../actions/actions'
+import * as AppActions from '../../actions';
 
-class Footer extends Component {
+const Footer = ({ app }) => {
+    const year = new Date().getFullYear();
 
-    shouldComponenteUpdate() {
-        return false;
-    }
+    return (
+        <footer className="container">
+            <span>&copy; 2000 - {year} - {app.secction}</span>
+        </footer>
+    )
+}
 
-    onButtonCLick = () => {
-        this.props.dispatch(startLogin(true))
-
-        setTimeout(() => {
-            this.props.dispatch(successLogin({ username: 'fernando', email: 'fer1@gmail.com' }))
-        }, 2000);
-    }
-
-    render() {
-        const year = new Date().getFullYear();
-        return (
-            <footer className="footer-container">
-                <span>&copy; 2000 - {year}</span>
-                <button onClick={this.onButtonCLick}> Enviar </button>
-            </footer>
-        )
-    }
+Footer.propTypes = {
+    actions: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => {
-    let { loading, is_login, user } = state;
-    return { loading, is_login, user };
-
+    return {
+        app: state.app
+    }
 }
 
-export default connect(mapStateToProps)(Footer);
+const mapDispatchToProps = dispatch => {
+    return { actions: bindActionCreators(AppActions, dispatch) };
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Footer));
